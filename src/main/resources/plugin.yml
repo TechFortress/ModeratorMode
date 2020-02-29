@@ -1,0 +1,16 @@
+name: TechFortress
+author: RoboMWM
+version: ${project.version}
+main: com.robomwm.moderatormode.ModeratorMode
+api-version: '1.15'
+
+commands:
+  moderatormode:
+    description: Toggles moderator mode
+    usage: /moderatormode
+    permission: moderatormode.toggle
+
+permissions:
+  moderatormode.toggle:
+    description: Permission to toggle /moderatormode
+    default: op
