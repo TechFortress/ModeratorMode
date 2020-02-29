@@ -20,6 +20,7 @@ public class TestToggle
     CommandExecutor executor = new ModeratorModeCommand();
     Command command = mock(Command.class);
     Player player = mock(Player.class);
+    Player modPlayer = mock(Player.class);
 
     @Before
     public void setupCommand()
@@ -27,9 +28,11 @@ public class TestToggle
         when(command.getName()).thenReturn("moderatormode");
     }
 
+    //TODO: update to check moderator status
     @Test
     public void test()
     {
-        assert executor.onCommand(player, command, "moderatormode", new String[0]);
+        assert !executor.onCommand(player, command, "moderatorMode", new String[0]);
+        assert executor.onCommand(modPlayer, command, "moderatormode", new String[0]);
     }
 }

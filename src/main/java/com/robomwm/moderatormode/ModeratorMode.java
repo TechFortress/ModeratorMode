@@ -1,5 +1,6 @@
 package com.robomwm.moderatormode;
 
+import com.robomwm.moderatormode.command.ModeratorModeCommand;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +14,6 @@ public class ModeratorMode extends JavaPlugin
     @Override
     public void onEnable()
     {
-        //getCommand("moderatormode").setExecutor();
+        getCommand("moderatormode").setExecutor(new ModeratorModeCommand());
     }
 }
