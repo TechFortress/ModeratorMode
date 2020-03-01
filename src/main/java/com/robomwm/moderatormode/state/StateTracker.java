@@ -17,16 +17,28 @@ public class StateTracker implements Listener
 {
     private Map<Player, ModeratorModeContext> moderators = new HashMap<>();
 
+    public void toggleModeratorMode(Player player)
+    {
+        moderators.putIfAbsent(player, new ModeratorModeContext(player));
+        ModeratorModeContext context = moderators.get(player);
+        context.toggleState();
+    }
 
+    public boolean isInModeratorMode(Player player)
+    {
+        ModeratorModeContext context = moderators.get(player);
+        return context != null && context.isInModeratorMode();
+    }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event)
+    public void cleanupOnQuit(PlayerQuitEvent event)
     {
         ModeratorModeContext context = moderators.get(event.getPlayer());
 
-        if (context != null && context.getState())
+        if (context != null && context.isInModeratorMode())
         {
-            context.setState(new ExitModeratorMode());
+            context.toggleState();
+            moderators.remove(event.getPlayer());
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.robomwm.moderatormode;
 
 import com.robomwm.moderatormode.command.ModeratorModeCommand;
+import com.robomwm.moderatormode.state.StateTracker;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
@@ -17,7 +18,8 @@ import static org.mockito.Mockito.when;
  */
 public class TestToggle
 {
-    CommandExecutor executor = new ModeratorModeCommand();
+    StateTracker tracker = new StateTracker();
+    CommandExecutor executor = new ModeratorModeCommand(tracker);
     Command command = mock(Command.class);
     Player player = mock(Player.class);
     Player modPlayer = mock(Player.class);
@@ -28,11 +30,23 @@ public class TestToggle
         when(command.getName()).thenReturn("moderatormode");
     }
 
-    //TODO: update to check moderator status
     @Test
     public void test()
     {
-        assert !executor.onCommand(player, command, "moderatorMode", new String[0]);
+        assert !tracker.isInModeratorMode(player);
+        assert !tracker.isInModeratorMode(modPlayer);
+
+        //Permission tests don't work because those are handled by Bukkit (defined at plugin.yml)
+        //assert !executor.onCommand(player, command, "moderatorMode", new String[0]);
         assert executor.onCommand(modPlayer, command, "moderatormode", new String[0]);
+
+        //assert !tracker.isInModeratorMode(player);
+        assert tracker.isInModeratorMode(modPlayer);
+
+        //assert !executor.onCommand(player, command, "moderatorMode", new String[0]);
+        assert executor.onCommand(modPlayer, command, "moderatormode", new String[0]);
+
+        //assert !tracker.isInModeratorMode(player);
+        assert !tracker.isInModeratorMode(modPlayer);
     }
 }

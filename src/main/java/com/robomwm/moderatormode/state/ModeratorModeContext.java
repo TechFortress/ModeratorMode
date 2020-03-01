@@ -11,6 +11,7 @@ public class ModeratorModeContext
 {
     private ModeratorModeState state;
     private Player player;
+    private boolean isInModeratorMode = false;
 
     public ModeratorModeContext(Player player)
     {
@@ -22,13 +23,22 @@ public class ModeratorModeContext
         return player;
     }
 
-    public void setState(ModeratorModeState state)
+    public void toggleState()
     {
-        this.state = state;
+        if (!isInModeratorMode)
+        {
+            this.state = new EnterModeratorMode();
+            isInModeratorMode = true;
+        }
+        else
+        {
+            this.state = new ExitModeratorMode();
+            isInModeratorMode = false;
+        }
     }
 
-    public ModeratorModeState getState()
+    public boolean isInModeratorMode()
     {
-        return state;
+        return isInModeratorMode;
     }
 }
