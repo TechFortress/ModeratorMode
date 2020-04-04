@@ -27,6 +27,7 @@ public class ModeratorModeContext
     {
         if (!isInModeratorMode)
         {
+            //TODO: put checks here
             this.state = new EnterModeratorMode();
             isInModeratorMode = true;
         }

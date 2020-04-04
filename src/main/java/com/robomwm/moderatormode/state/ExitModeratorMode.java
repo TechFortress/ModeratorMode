@@ -1,5 +1,6 @@
 package com.robomwm.moderatormode.state;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,5 +15,7 @@ public class ExitModeratorMode implements ModeratorModeState
     {
         Player player = context.getPlayer();
         //TODO: remove moderator attributes here
+
+        player.sendActionBar(ChatColor.GREEN + "Exited moderator mode.");
     }
 }

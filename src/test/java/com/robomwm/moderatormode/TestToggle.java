@@ -8,6 +8,11 @@ import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

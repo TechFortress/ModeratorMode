@@ -1,5 +1,6 @@
 package com.robomwm.moderatormode.state;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,5 +15,7 @@ public class EnterModeratorMode implements ModeratorModeState
     {
         Player player = context.getPlayer();
         //TODO: add moderator attributes here
+
+        player.sendActionBar(ChatColor.GREEN + "Entered moderator mode.");
     }
 }
