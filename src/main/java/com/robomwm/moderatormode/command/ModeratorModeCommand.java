@@ -29,10 +29,6 @@ public class ModeratorModeCommand implements CommandExecutor
         Player player = (Player)sender;
 
         tracker.toggleModeratorMode(player);
-        if (tracker.isInModeratorMode(player))
-            player.sendActionBar("Entered moderator mode.");
-        else
-            player.sendActionBar("");
         return true;
     }
 }

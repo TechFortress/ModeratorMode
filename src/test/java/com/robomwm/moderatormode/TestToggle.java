@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,17 +27,19 @@ public class TestToggle
     StateTracker tracker = new StateTracker();
     CommandExecutor executor = new ModeratorModeCommand(tracker);
     Command command = mock(Command.class);
-    Player player = mock(Player.class);
-    Player modPlayer = mock(Player.class);
+    Player player = mock(Player.class, RETURNS_DEEP_STUBS);
+    Player modPlayer = mock(Player.class, RETURNS_DEEP_STUBS);
 
     @Before
     public void setupCommand()
     {
         when(command.getName()).thenReturn("moderatormode");
+        when(modPlayer.isOnGround()).thenReturn(true);
+        when(modPlayer.getKiller()).thenReturn(null);
     }
 
     @Test
-    public void test()
+    public void testCommand()
     {
         assert !tracker.isInModeratorMode(player);
         assert !tracker.isInModeratorMode(modPlayer);

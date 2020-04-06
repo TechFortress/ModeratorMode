@@ -1,5 +1,9 @@
 package com.robomwm.moderatormode.state;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Boss;
+import org.bukkit.entity.Mob;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
 /**
@@ -15,6 +19,7 @@ public class ModeratorModeContext
 
     public ModeratorModeContext(Player player)
     {
+        this.player = player;
         state = null;
     }
 
@@ -27,19 +32,59 @@ public class ModeratorModeContext
     {
         if (!isInModeratorMode)
         {
-            //TODO: put checks here
+            if (!prerequisites(player))
+            {
+                player.sendMessage(ChatColor.RED + "Unable to enter moderator mode at this time, please try again later.");
+                return;
+            }
             this.state = new EnterModeratorMode();
             isInModeratorMode = true;
+            player.sendMessage(ChatColor.DARK_GREEN + "Entered Moderator Mode");
         }
         else
         {
             this.state = new ExitModeratorMode();
             isInModeratorMode = false;
+            player.sendMessage(ChatColor.DARK_GREEN + "Exited Moderator Mode");
         }
     }
 
     public boolean isInModeratorMode()
     {
         return isInModeratorMode;
+    }
+
+    public boolean prerequisites(Player player)
+    {
+        if (!player.isOnGround())
+        {
+            System.out.println(player.getName() + " tried to enter moderator mode but wasn't on the ground.");
+            return false;
+        }
+
+        //Is being targeted by a monster?
+        //Is a boss mob nearby?
+
+        for (Mob entity : player.getLocation().getNearbyEntitiesByType(Mob.class,32, 32, 32))
+        {
+            if (entity instanceof Boss)
+            {
+                System.out.println(player.getName() + " tried to enter moderator mode but was near a boss.");
+                return false;
+            }
+            if (entity.getTarget() == player && entity instanceof Monster)
+            {
+                System.out.println(player.getName() + " tried to enter moderator mode but was being targeted by a monster.");
+                return false;
+            }
+        }
+
+        if (player.getKiller() != null)
+        {
+            System.out.println(player.getName() + " tried to enter moderator mode but was recently damaged by a player.");
+            return false;
+        }
+
+        return true;
     }
 }
