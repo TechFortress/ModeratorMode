@@ -16,6 +16,7 @@ public class ExitModeratorMode implements ModeratorModeState
         Player player = context.getPlayer();
         //TODO: remove moderator attributes here
 
+        context.removePermissionAttachment();
         player.sendActionBar(ChatColor.GREEN + "Exited moderator mode.");
     }
 }

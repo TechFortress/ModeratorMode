@@ -15,7 +15,8 @@ public class EnterModeratorMode implements ModeratorModeState
     {
         Player player = context.getPlayer();
         //TODO: add moderator attributes here
-        context.getPermissionAttachment().setPermission("ticketmaster.helper.basic", true);
+        context.createOrGetPermissionAttachment().setPermission("ticketmaster.helper.basic", true);
+        context.createOrGetPermissionAttachment().setPermission("griefprevention.softmute", true);
 
         player.sendActionBar(ChatColor.GREEN + "Entered moderator mode.");
     }

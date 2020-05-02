@@ -6,6 +6,7 @@ import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.plugin.Plugin;
 
 /**
  * Created on 2/29/2020.
@@ -18,11 +19,12 @@ public class ModeratorModeContext
     private Player player;
     private boolean isInModeratorMode = false;
     private PermissionAttachment permissionAttachment;
+    private Plugin plugin;
 
-    public ModeratorModeContext(Player player, PermissionAttachment moderatorPermissions)
+    public ModeratorModeContext(Player player, Plugin plugin)
     {
         this.player = player;
-        this.permissionAttachment = moderatorPermissions;
+        this.plugin = plugin;
         state = null;
     }
 
@@ -31,9 +33,29 @@ public class ModeratorModeContext
         return player;
     }
 
-    public PermissionAttachment getPermissionAttachment()
+    public PermissionAttachment createOrGetPermissionAttachment()
     {
+        if (permissionAttachment != null)
+            permissionAttachment = player.addAttachment(plugin);
         return permissionAttachment;
+    }
+
+    public boolean removePermissionAttachment()
+    {
+        if (permissionAttachment != null)
+        {
+            try
+            {
+                player.removeAttachment(permissionAttachment);
+            }
+            catch (IllegalArgumentException e)
+            {
+                permissionAttachment = null;
+                return false;
+            }
+        }
+        permissionAttachment = null;
+        return true;
     }
 
     public void toggleState()

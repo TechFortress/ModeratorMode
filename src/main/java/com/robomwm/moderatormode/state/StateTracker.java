@@ -34,7 +34,7 @@ public class StateTracker implements Listener
     public void toggleModeratorMode(Player player)
     {
         if (!moderators.containsKey(player))
-            moderators.put(player, new ModeratorModeContext(player, player.addAttachment(plugin)));
+            moderators.put(player, new ModeratorModeContext(player, plugin));
         ModeratorModeContext context = moderators.get(player);
         context.toggleState();
     }
