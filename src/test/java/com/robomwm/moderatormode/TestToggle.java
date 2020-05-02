@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
  */
 public class TestToggle
 {
-    StateTracker tracker = new StateTracker();
+    StateTracker tracker = new StateTracker(mock(ModeratorMode.class));
     CommandExecutor executor = new ModeratorModeCommand(tracker);
     Command command = mock(Command.class);
     Player player = mock(Player.class, RETURNS_DEEP_STUBS);

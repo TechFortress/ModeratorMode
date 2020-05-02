@@ -20,7 +20,7 @@ public class ModeratorMode extends JavaPlugin
     @Override
     public void onEnable()
     {
-        StateTracker tracker = new StateTracker();
+        StateTracker tracker = new StateTracker(this);
 
         getCommand("moderatormode").setExecutor(new ModeratorModeCommand(tracker));
     }
