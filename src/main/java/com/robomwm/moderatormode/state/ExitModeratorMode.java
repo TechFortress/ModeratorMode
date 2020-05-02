@@ -1,6 +1,7 @@
 package com.robomwm.moderatormode.state;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 /**
@@ -18,6 +19,7 @@ public class ExitModeratorMode implements ModeratorModeState
 
         context.removePermissionAttachment();
         player.teleport(context.getLastSurvivalLocation());
+        player.setGameMode(GameMode.SURVIVAL);
         player.sendActionBar(ChatColor.GREEN + "Exited moderator mode.");
     }
 }
