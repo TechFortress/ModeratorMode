@@ -5,6 +5,7 @@ import org.bukkit.entity.Boss;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 
 /**
  * Created on 2/29/2020.
@@ -16,16 +17,23 @@ public class ModeratorModeContext
     private ModeratorModeState state;
     private Player player;
     private boolean isInModeratorMode = false;
+    private PermissionAttachment permissionAttachment;
 
-    public ModeratorModeContext(Player player)
+    public ModeratorModeContext(Player player, PermissionAttachment moderatorPermissions)
     {
         this.player = player;
+        this.permissionAttachment = moderatorPermissions;
         state = null;
     }
 
     public Player getPlayer()
     {
         return player;
+    }
+
+    public PermissionAttachment getPermissionAttachment()
+    {
+        return permissionAttachment;
     }
 
     public void toggleState()

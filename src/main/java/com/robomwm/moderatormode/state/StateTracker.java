@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +22,19 @@ import java.util.Map;
  */
 public class StateTracker implements Listener
 {
+    private Plugin plugin;
+
+    public StateTracker(Plugin plugin)
+    {
+        this.plugin = plugin;
+    }
+
     private Map<Player, ModeratorModeContext> moderators = new HashMap<>();
 
     public void toggleModeratorMode(Player player)
     {
-        moderators.putIfAbsent(player, new ModeratorModeContext(player));
+        if (!moderators.containsKey(player))
+            moderators.put(player, new ModeratorModeContext(player, player.addAttachment(plugin)));
         ModeratorModeContext context = moderators.get(player);
         context.toggleState();
     }
