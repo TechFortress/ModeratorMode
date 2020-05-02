@@ -1,6 +1,7 @@
 package com.robomwm.moderatormode.state;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Boss;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
@@ -19,6 +20,7 @@ public class ModeratorModeContext
     private Player player;
     private boolean isInModeratorMode = false;
     private PermissionAttachment permissionAttachment;
+    private Location lastSurvivalLocation;
     private Plugin plugin;
 
     public ModeratorModeContext(Player player, Plugin plugin)
@@ -31,6 +33,16 @@ public class ModeratorModeContext
     public Player getPlayer()
     {
         return player;
+    }
+
+    public Location getLastSurvivalLocation()
+    {
+        return lastSurvivalLocation;
+    }
+
+    public void setLastSurvivalLocation(Location lastSurvivalLocation)
+    {
+        this.lastSurvivalLocation = lastSurvivalLocation;
     }
 
     public PermissionAttachment createOrGetPermissionAttachment()

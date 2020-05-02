@@ -17,6 +17,7 @@ public class ExitModeratorMode implements ModeratorModeState
         //TODO: remove moderator attributes here
 
         context.removePermissionAttachment();
+        player.teleport(context.getLastSurvivalLocation());
         player.sendActionBar(ChatColor.GREEN + "Exited moderator mode.");
     }
 }

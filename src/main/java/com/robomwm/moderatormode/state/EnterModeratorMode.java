@@ -1,6 +1,7 @@
 package com.robomwm.moderatormode.state;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,9 +15,10 @@ public class EnterModeratorMode implements ModeratorModeState
     public void toggleModeratorMode(ModeratorModeContext context)
     {
         Player player = context.getPlayer();
-        //TODO: add moderator attributes here
+        context.setLastSurvivalLocation(player.getLocation());
         context.createOrGetPermissionAttachment().setPermission("ticketmaster.helper.basic", true);
         context.createOrGetPermissionAttachment().setPermission("griefprevention.softmute", true);
+        player.setGameMode(GameMode.SPECTATOR);
 
         player.sendActionBar(ChatColor.GREEN + "Entered moderator mode.");
     }

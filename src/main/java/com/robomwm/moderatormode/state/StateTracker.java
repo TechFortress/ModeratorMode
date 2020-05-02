@@ -1,5 +1,6 @@
 package com.robomwm.moderatormode.state;
 
+import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Boss;
 import org.bukkit.entity.EnderDragon;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -55,5 +57,12 @@ public class StateTracker implements Listener
             context.toggleState();
             moderators.remove(event.getPlayer());
         }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onAdvancement(PlayerAdvancementCriterionGrantEvent event)
+    {
+        if (isInModeratorMode(event.getPlayer()))
+            event.setCancelled(true);
     }
 }
