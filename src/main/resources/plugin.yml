@@ -1,4 +1,4 @@
-name: TechFortress
+name: ModeratorMode
 author: RoboMWM
 version: ${project.version}
 main: com.robomwm.moderatormode.ModeratorMode
