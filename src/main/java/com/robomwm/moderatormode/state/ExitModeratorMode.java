@@ -21,5 +21,7 @@ public class ExitModeratorMode implements ModeratorModeState
         player.teleport(context.getLastSurvivalLocation());
         player.setGameMode(GameMode.SURVIVAL);
         player.sendActionBar(ChatColor.GREEN + "Exited moderator mode.");
+        player.sendMessage(ChatColor.GREEN + "Exited moderator mode.");
+        context.setState(this);
     }
 }

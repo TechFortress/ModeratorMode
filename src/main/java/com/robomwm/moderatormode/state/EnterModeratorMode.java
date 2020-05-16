@@ -21,5 +21,7 @@ public class EnterModeratorMode implements ModeratorModeState
         player.setGameMode(GameMode.SPECTATOR);
 
         player.sendActionBar(ChatColor.GREEN + "Entered moderator mode.");
+        player.sendMessage(ChatColor.GREEN + "Entered moderator mode.");
+        context.setState(this);
     }
 }

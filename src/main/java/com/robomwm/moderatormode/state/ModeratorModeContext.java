@@ -18,7 +18,6 @@ public class ModeratorModeContext
 {
     private ModeratorModeState state;
     private Player player;
-    private boolean isInModeratorMode = false;
     private PermissionAttachment permissionAttachment;
     private Location lastSurvivalLocation;
     private Plugin plugin;
@@ -47,7 +46,7 @@ public class ModeratorModeContext
 
     public PermissionAttachment createOrGetPermissionAttachment()
     {
-        if (permissionAttachment != null)
+        if (permissionAttachment == null)
             permissionAttachment = player.addAttachment(plugin);
         return permissionAttachment;
     }
@@ -72,28 +71,24 @@ public class ModeratorModeContext
 
     public void toggleState()
     {
-        if (!isInModeratorMode)
+        if (!isInModeratorMode())
         {
             if (!prerequisites(player))
             {
                 player.sendMessage(ChatColor.RED + "Unable to enter moderator mode at this time, please try again later.");
                 return;
             }
-            this.state = new EnterModeratorMode();
-            isInModeratorMode = true;
-            player.sendMessage(ChatColor.DARK_GREEN + "Entered Moderator Mode");
+            new EnterModeratorMode().toggleModeratorMode(this);
         }
         else
         {
-            this.state = new ExitModeratorMode();
-            isInModeratorMode = false;
-            player.sendMessage(ChatColor.DARK_GREEN + "Exited Moderator Mode");
+            new ExitModeratorMode().toggleModeratorMode(this);
         }
     }
 
     public boolean isInModeratorMode()
     {
-        return isInModeratorMode;
+        return state instanceof EnterModeratorMode;
     }
 
     public boolean prerequisites(Player player)
@@ -128,5 +123,10 @@ public class ModeratorModeContext
         }
 
         return true;
+    }
+
+    public void setState(ModeratorModeState state)
+    {
+        this.state = state;
     }
 }
