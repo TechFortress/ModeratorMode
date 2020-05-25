@@ -2,6 +2,7 @@ package com.robomwm.moderatormode.state;
 
 import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Boss;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
@@ -62,7 +63,7 @@ public class StateTracker implements Listener
     @EventHandler(ignoreCancelled = true)
     public void onAdvancement(PlayerAdvancementCriterionGrantEvent event)
     {
-        if (isInModeratorMode(event.getPlayer()))
+        if (isInModeratorMode(event.getPlayer()) || event.getPlayer().getGameMode() == GameMode.SPECTATOR)
             event.setCancelled(true);
     }
 }
