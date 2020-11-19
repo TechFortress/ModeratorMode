@@ -75,7 +75,7 @@ public class ModeratorModeContext
         {
             if (!prerequisites(player))
             {
-                player.sendMessage(ChatColor.RED + "Unable to enter moderator mode at this time, please try again later.");
+                player.sendMessage(ChatColor.RED + "Unable to enter moderator mode due to issue printed above, please try again later.");
                 return;
             }
             new EnterModeratorMode().toggleModeratorMode(this);
@@ -96,6 +96,7 @@ public class ModeratorModeContext
         if (!player.isOnGround())
         {
             System.out.println(player.getName() + " tried to enter moderator mode but wasn't on the ground.");
+            player.sendMessage(ChatColor.RED + "You are not on the ground.");
             return false;
         }
 
@@ -107,11 +108,13 @@ public class ModeratorModeContext
             if (entity instanceof Boss)
             {
                 System.out.println(player.getName() + " tried to enter moderator mode but was near a boss.");
+                player.sendMessage(ChatColor.RED + "A boss mob is nearby.");
                 return false;
             }
             if (entity.getTarget() == player && entity instanceof Monster)
             {
                 System.out.println(player.getName() + " tried to enter moderator mode but was being targeted by a monster.");
+                player.sendMessage(ChatColor.RED + "A monster is targeting you: " + entity.getName());
                 return false;
             }
         }
@@ -119,6 +122,7 @@ public class ModeratorModeContext
         if (player.getKiller() != null)
         {
             System.out.println(player.getName() + " tried to enter moderator mode but was recently damaged by a player.");
+            player.sendMessage(ChatColor.RED + "You were recently pvp'ing with a player: " + player.getKiller().getName());
             return false;
         }
 
